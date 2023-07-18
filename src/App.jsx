@@ -1,5 +1,5 @@
 import Calculator from './components/Calculator.jsx'
-import Logo from '/src/assets/logo.svg'
+import Logo from '/src/assets/images/logo.svg'
 
 function App () {
   return (

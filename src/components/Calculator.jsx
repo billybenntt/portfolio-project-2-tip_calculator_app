@@ -1,3 +1,6 @@
+import moneyIcon from '/src/assets/images/icon-dollar.svg'
+import personIcon from '/src/assets/images/icon-person.svg'
+
 function Calculator () {
   return (
     <div className="calculator">
@@ -5,27 +8,47 @@ function Calculator () {
         {/* INPUT CONTAINER */}
         <div className="input-container">
           <div className="calculator-bill">
-            <h4 className="group-title">Bill</h4>
-            <div>
-              <input type="text" className="input-control" placeholder="0"/>
+            <h4 className="input-title">Bill</h4>
+            <div className="input-group ">
+              <img src={moneyIcon} alt="icon" className="icon"/>
+              <input type="number"
+                className="input-control input-amount-focus"
+                placeholder="0"/>
             </div>
+
           </div>
           <div className="calculator-tip">
-            <h4 className="group-title">Select Tip %</h4>
+            <h4 className="input-title">Select Tip %</h4>
             <div className="tip-btn-container">
-              <div className="tip-btn">5%</div>
-              <div className="tip-btn">10%</div>
-              <div className="tip-btn">15%</div>
-              <div className="tip-btn">25%</div>
-              <div className="tip-btn">50%</div>
-              <div className="tip-btn">
-                <input type="text" placeholder="Custom" className="tip-btn-input"/>
+              <div className="tip-btn" tabIndex="0">
+                <p>5%</p>
               </div>
+              <div className="tip-btn" tabIndex="0">
+                <p>10%</p>
+              </div>
+              <div className="tip-btn" tabIndex="0">
+                <p>15%</p>
+              </div>
+              <div className="tip-btn" tabIndex="0">
+                <p>25%</p>
+              </div>
+              <div className="tip-btn" tabIndex="0">
+                <p>50%</p>
+              </div>
+
+              {/*CUSTOM TIP */}
+              <input type="text" placeholder="custom"
+                className="tip-btn-custom"/>
             </div>
           </div>
           <div className="calculator-counter">
-            <h4 className="group-title">Number of People</h4>
-            <input type="text" className="input-control" placeholder="0"/>
+            <h4 className="input-title">Number of People</h4>
+            <div className="input-group">
+              <img src={personIcon} alt="icon" className="icon"/>
+              <input type="number"
+                className="input-control input-amount-focus"
+                placeholder="0"/>
+            </div>
           </div>
         </div>
         {/* OUTPUT CONTAINER */}

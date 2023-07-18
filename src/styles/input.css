@@ -6,40 +6,99 @@
 
 
 @layer base {
-
     body {
         @apply font-mono
     }
 
+    input {
+        direction: rtl;
+        caret: underscore;
+        caret-color: green;
+    }
 
 }
 
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+/* GENERAL LAYOUT */
 
 .main {
     @apply bg-primary-cyan-2 h-screen grid place-items-center
 }
 
 .calculator {
-    @apply mx-auto bg-white rounded-3xl md:max-w-3xl
+    @apply mx-auto bg-white rounded-3xl md:max-w-3xl select-none
 }
 
 .calculator-center {
     @apply p-8 flex flex-col md:flex-row w-full gap-6
 }
 
+/* INPUT AREA */
+
 .input-container {
     @apply md:flex-1 md:space-y-10 space-y-10
-
 }
+
+.input-title {
+    @apply text-primary-cyan-4 mb-1
+}
+
+
+.input-group {
+    @apply relative
+}
+
+.input-control {
+    @apply w-full bg-accent-gray rounded-lg p-2 outline-none text-2xl
+    text-primary-cyan-6 border-2 border-white cursor-pointer duration-500
+}
+
+.tip-btn-container {
+    @apply grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-2
+}
+
+.tip-btn {
+    @apply p-2.5 md:text-xl md:p-1 bg-primary-cyan-6 text-white
+    border border-white text-center text-2xl rounded-lg cursor-pointer
+    duration-200 active:bg-primary-cyan-2 focus:bg-primary-cyan-5-light
+    focus:text-primary-cyan-6
+}
+
+.tip-btn-custom {
+    @apply p-2.5 md:text-xl md:p-1 bg-accent-gray text-primary-cyan-6
+    border-2 text-center text-2xl rounded-lg cursor-pointer
+    focus:border-primary-cyan-5 outline-none duration-200
+}
+
+
+
+
+.input-amount-focus {
+    @apply focus:border-primary-cyan-5
+}
+
+
+.icon {
+    @apply absolute top-5 left-5
+}
+
+
+/* OUTPUT AREA */
 
 .output-container {
     @apply bg-primary-cyan-6 p-10 md:flex-1 rounded-2xl flex flex-col
     justify-between
-}
-
-
-.group-title {
-    @apply text-primary-cyan-4 mb-1
 }
 
 .output-group {
@@ -60,24 +119,10 @@
 
 .output-reset-btn {
     @apply bg-primary-cyan-5 text-center text-2xl text-primary-cyan-6
-    rounded-md
+    rounded-lg hover:bg-primary-cyan-5-light hover:text-primary-cyan-6
+    cursor-pointer duration-200 active:scale-95 p-1
 }
 
 
-.input-control {
-    @apply w-full bg-accent-gray rounded-lg p-2 outline-none text-2xl
-}
 
-.tip-btn-container {
-    @apply grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-2
-}
 
-.tip-btn {
-    @apply bg-primary-cyan-6 text-white border border-white text-center
-    text-2xl  hover:bg-primary-cyan-5-light hover:text-primary-cyan-6
-    rounded-lg cursor-pointer md:text-xl md:py-1
-}
-
-.tip-btn-input {
-    @apply w-full bg-transparent outline-none
-}
