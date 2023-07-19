@@ -68,11 +68,11 @@ input[type=number] {
     @apply grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-2
 }
 
+
 .tip-btn {
-    @apply p-2.5 md:text-xl md:p-1 bg-primary-cyan-6 text-white
-    border border-white text-center text-2xl rounded-lg cursor-pointer
-    duration-200 active:bg-primary-cyan-2 focus:bg-primary-cyan-5-light
-    focus:text-primary-cyan-6
+    @apply bg-primary-cyan-6 inline-block w-full p-2.5 md:p-1 rounded-lg
+    text-white border-2 text-2xl md:text-xl text-center
+    cursor-pointer focus:border-primary-cyan-5
 }
 
 .tip-btn-custom {

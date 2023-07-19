@@ -509,6 +509,9 @@ input {
   margin-left: auto;
   margin-right: auto;
 }
+.hidden{
+  display: none;
+}
 
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
@@ -629,12 +632,13 @@ input[type=number] {
   }
 }
 
+
 .tip-btn{
+  display: inline-block;
+  width: 100%;
   cursor: pointer;
   border-radius: 0.5rem;
-  border-width: 1px;
-  --tw-border-opacity: 1;
-  border-color: rgb(255 255 255 / var(--tw-border-opacity));
+  border-width: 2px;
   --tw-bg-opacity: 1;
   background-color: rgb(0 71 75 / var(--tw-bg-opacity));
   padding: 0.625rem;
@@ -642,20 +646,14 @@ input[type=number] {
   font-size: 1.5rem;
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
-  transition-duration: 200ms;
 }
+
 
 .tip-btn:focus{
-  --tw-bg-opacity: 1;
-  background-color: rgb(159 232 223 / var(--tw-bg-opacity));
-  --tw-text-opacity: 1;
-  color: rgb(0 71 75 / var(--tw-text-opacity));
+  --tw-border-opacity: 1;
+  border-color: rgb(38 194 174 / var(--tw-border-opacity));
 }
 
-.tip-btn:active{
-  --tw-bg-opacity: 1;
-  background-color: rgb(197 228 231 / var(--tw-bg-opacity));
-}
 
 @media (min-width: 768px){
 
