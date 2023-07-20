@@ -11,7 +11,8 @@
     }
 
     input {
-        direction: rtl;
+        display: flex;
+        text-align: end;
         caret: underscore;
         caret-color: green;
     }
@@ -82,12 +83,9 @@ input[type=number] {
 }
 
 
-
-
 .input-amount-focus {
     @apply focus:border-primary-cyan-5
 }
-
 
 .icon {
     @apply absolute top-5 left-5

@@ -2,56 +2,62 @@ import { useCallback, useEffect, useState } from 'react'
 import moneyIcon from '/src/assets/images/icon-dollar.svg'
 import personIcon from '/src/assets/images/icon-person.svg'
 
+const initialState = {
+  bill: { amount: '', people: '', tip: '' },
+  total: { tipAmountPerson: '0.00', totalAmountPerson: '0.00' }
+}
+
 function Calculator () {
 
-  const [bill, setBill] = useState({
-    amount: '',
-    tip: 0,
-    people: 1,
-  })
+  const [bill, setBill] = useState(initialState.bill)
+  const [total, setTotal] = useState(initialState.total)
 
-  const [total, setTotal] = useState({
-    tipAmountPerson: 0,
-    totalAmountPerson: 0,
-  })
-
-
-  // CALCULATE BILL AND AVOID UNNECESARY RE RENDERING
+  // CALCULATE BILL
   const calculateBill = useCallback(() => {
-    const totalAmountPerson = parseFloat((bill.amount / bill.people).toFixed(2))
+    const tipPercentage = +bill.tip / 100
+    const billSubTotal = +bill.amount
+    const numberPeople = +bill.people === 0 ? 1 : +bill.people
+    const tipTotal = (billSubTotal * tipPercentage)
+    const billTotal = billSubTotal + tipTotal
+    const tipDivided = (tipTotal / numberPeople).toFixed(2)
+    const billDivided = (billTotal / numberPeople).toFixed(2)
+
     const newTotal = {
-      tipAmountPerson: 0,
-      totalAmountPerson,
+      tipAmountPerson: tipDivided,
+      totalAmountPerson: billDivided,
     }
     setTotal(newTotal)
   }, [bill])
 
-
-  // EFFECT RELOAD COMPONENT
+  // EFFECT - CALCULATE AND RELOAD COMPONENT
   useEffect(() => {
     calculateBill()
   }, [bill, calculateBill])
 
 
+  //  EVENT LISTENER - CLEAR VALUES
+  const clearBill = () => {
+    setTotal(initialState.total)
+    setBill(initialState.bill)
+  }
+
+  //  EVENT LISTENER - UPDATE VALUES
 
   const handleChange = (e) => {
-    const { value, name, type, checked } = e.target
-
+    const { value, name } = e.target
     setBill((prevState) => {
-
-      // Update if value is not NAN and Changing amount
-      if (!isNaN(parseFloat(value)) && name === 'amount') {
-        return { ...prevState, [name]: parseFloat(value) }
+      const isValidNumber = !isNaN(value)
+      switch (name) {
+        case 'amount':
+          return isValidNumber ? { ...prevState, amount: value } : prevState
+        case 'people':
+          return isValidNumber ? { ...prevState, people: value } : prevState
+        case 'tip':
+          return { ...prevState, [name]: value }
+        default:
+          return { ...prevState, [name]: '' }
       }
-
-      if (!isNaN(parseFloat(value)) && name === 'people') {
-        return { ...prevState, [name]: parseFloat(value) }
-      }
-
-      // Else return as is but return to default
-      return { ...prevState, [name]: '' }
     })
-
   }
 
   return (
@@ -78,7 +84,7 @@ function Calculator () {
                 <label htmlFor="tip-5" className="tip-btn" tabIndex="0">5%</label>
                 <input type="radio"
                   className="hidden"
-                  checked={bill.tip === '5'}
+                  checked={bill.tip === 5}
                   value="5"
                   onChange={handleChange}
                   name="tip"
@@ -89,7 +95,7 @@ function Calculator () {
                 <label htmlFor="tip-10" className="tip-btn" tabIndex="0">10%</label>
                 <input type="radio"
                   className="hidden"
-                  checked={bill.tip === '10'}
+                  checked={bill.tip === 10}
                   value="10"
                   onChange={handleChange}
                   name="tip"
@@ -100,7 +106,7 @@ function Calculator () {
                 <label htmlFor="tip-15" className="tip-btn" tabIndex="0">15%</label>
                 <input type="radio"
                   className="hidden"
-                  checked={bill.tip === '15'}
+                  checked={bill.tip === 15}
                   value="15"
                   onChange={handleChange}
                   name="tip"
@@ -111,7 +117,7 @@ function Calculator () {
                 <label htmlFor="tip-25" className="tip-btn" tabIndex="0">25%</label>
                 <input type="radio"
                   className="hidden"
-                  checked={bill.tip === '25'}
+                  checked={bill.tip === 25}
                   value="25"
                   onChange={handleChange}
                   name="tip"
@@ -122,7 +128,7 @@ function Calculator () {
                 <label htmlFor="tip-50" className="tip-btn" tabIndex="0">50%</label>
                 <input type="radio"
                   className="hidden"
-                  checked={bill.tip === '50'}
+                  checked={bill.tip === 50}
                   value="50"
                   onChange={handleChange}
                   name="tip"
@@ -157,7 +163,7 @@ function Calculator () {
                 <h4 className="output-title">Tip Amount</h4>
                 <h5 className="output-subtext">/person</h5>
               </div>
-              <h2 className="output-amount">$4.27</h2>
+              <h2 className="output-amount">${total.tipAmountPerson}</h2>
             </div>
             <div className="output-group">
               <div>
@@ -166,13 +172,10 @@ function Calculator () {
               </div>
               <h2 className="output-amount">${total.totalAmountPerson}</h2>
             </div>
-
           </div>
-
-          <div className="output-reset-btn">
+          <div className="output-reset-btn" onClick={clearBill}>
             <span>RESET</span>
           </div>
-
         </div>
       </div>
     </div>

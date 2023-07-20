@@ -398,7 +398,8 @@ body{
 }
 
 input {
-        direction: rtl;
+        display: flex;
+        text-align: end;
         caret: underscore;
         caret-color: green;
     }
@@ -693,13 +694,10 @@ input[type=number] {
 }
 
 
-
-
 .input-amount-focus:focus{
   --tw-border-opacity: 1;
   border-color: rgb(38 194 174 / var(--tw-border-opacity));
 }
-
 
 .icon{
   position: absolute;
