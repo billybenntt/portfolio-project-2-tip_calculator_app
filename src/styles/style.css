@@ -596,10 +596,27 @@ input[type=number] {
   color: rgb(94 122 125 / var(--tw-text-opacity));
 }
 
+.input-title-group{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
 .input-group{
   position: relative;
 }
+
+.input-error{
+  visibility: hidden;
+  font-size: 0.813rem;
+  --tw-text-opacity: 1;
+  color: rgb(239 68 68 / var(--tw-text-opacity));
+}
+
+.input-error.active{
+  visibility: visible;
+}
+
 
 .input-control{
   width: 100%;
@@ -619,6 +636,22 @@ input[type=number] {
   transition-duration: 500ms;
 }
 
+
+.input-control:focus{
+  --tw-border-opacity: 1;
+  border-color: rgb(38 194 174 / var(--tw-border-opacity));
+}
+
+.input-control.active{
+  --tw-border-opacity: 1;
+  border-color: rgb(239 68 68 / var(--tw-border-opacity));
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 202 202 / var(--tw-bg-opacity));
+  --tw-text-opacity: 1;
+  color: rgb(153 27 27 / var(--tw-text-opacity));
+  transition-duration: 200ms;
+}
+
 .tip-btn-container{
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -632,7 +665,6 @@ input[type=number] {
     gap: 0.5rem;
   }
 }
-
 
 .tip-btn{
   display: inline-block;
@@ -649,12 +681,10 @@ input[type=number] {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
-
 .tip-btn:focus{
   --tw-border-opacity: 1;
   border-color: rgb(38 194 174 / var(--tw-border-opacity));
 }
-
 
 @media (min-width: 768px){
 
@@ -693,11 +723,6 @@ input[type=number] {
   }
 }
 
-
-.input-amount-focus:focus{
-  --tw-border-opacity: 1;
-  border-color: rgb(38 194 174 / var(--tw-border-opacity));
-}
 
 .icon{
   position: absolute;
@@ -757,6 +782,7 @@ input[type=number] {
   padding: 0.25rem;
   text-align: center;
   font-size: 1.5rem;
+  letter-spacing: 0.1em;
   --tw-text-opacity: 1;
   color: rgb(0 71 75 / var(--tw-text-opacity));
   transition-duration: 200ms;

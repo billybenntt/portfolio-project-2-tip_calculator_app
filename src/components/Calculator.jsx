@@ -3,7 +3,7 @@ import moneyIcon from '/src/assets/images/icon-dollar.svg'
 import personIcon from '/src/assets/images/icon-person.svg'
 
 const initialState = {
-  bill: { amount: '', people: '', tip: '' },
+  bill: { amount: '', people: '', tip: '', custom_tip: '' },
   total: { tipAmountPerson: '0.00', totalAmountPerson: '0.00' }
 }
 
@@ -14,7 +14,7 @@ function Calculator () {
 
   // CALCULATE BILL
   const calculateBill = useCallback(() => {
-    const tipPercentage = +bill.tip / 100
+    const tipPercentage = ((+bill.tip) || (+bill.custom_tip)) / 100
     const billSubTotal = +bill.amount
     const numberPeople = +bill.people === 0 ? 1 : +bill.people
     const tipTotal = (billSubTotal * tipPercentage)
@@ -34,7 +34,6 @@ function Calculator () {
     calculateBill()
   }, [bill, calculateBill])
 
-
   //  EVENT LISTENER - CLEAR VALUES
   const clearBill = () => {
     setTotal(initialState.total)
@@ -52,8 +51,10 @@ function Calculator () {
           return isValidNumber ? { ...prevState, amount: value } : prevState
         case 'people':
           return isValidNumber ? { ...prevState, people: value } : prevState
+        case 'custom-tip':
+          return isValidNumber ? { ...prevState, custom_tip: value, tip: '' } : prevState
         case 'tip':
-          return { ...prevState, [name]: value }
+          return { ...prevState, [name]: value, custom_tip: '' }
         default:
           return { ...prevState, [name]: '' }
       }
@@ -73,7 +74,7 @@ function Calculator () {
                 name="amount"
                 value={bill.amount}
                 onChange={(e) => handleChange(e)}
-                className="input-control input-amount-focus"
+                className="input-control"
                 placeholder="0"/>
             </div>
           </div>
@@ -84,7 +85,7 @@ function Calculator () {
                 <label htmlFor="tip-5" className="tip-btn" tabIndex="0">5%</label>
                 <input type="radio"
                   className="hidden"
-                  checked={bill.tip === 5}
+                  checked={bill.tip === '5'}
                   value="5"
                   onChange={handleChange}
                   name="tip"
@@ -95,7 +96,7 @@ function Calculator () {
                 <label htmlFor="tip-10" className="tip-btn" tabIndex="0">10%</label>
                 <input type="radio"
                   className="hidden"
-                  checked={bill.tip === 10}
+                  checked={bill.tip === '10'}
                   value="10"
                   onChange={handleChange}
                   name="tip"
@@ -106,7 +107,7 @@ function Calculator () {
                 <label htmlFor="tip-15" className="tip-btn" tabIndex="0">15%</label>
                 <input type="radio"
                   className="hidden"
-                  checked={bill.tip === 15}
+                  checked={bill.tip === '15'}
                   value="15"
                   onChange={handleChange}
                   name="tip"
@@ -117,7 +118,7 @@ function Calculator () {
                 <label htmlFor="tip-25" className="tip-btn" tabIndex="0">25%</label>
                 <input type="radio"
                   className="hidden"
-                  checked={bill.tip === 25}
+                  checked={bill.tip === '25'}
                   value="25"
                   onChange={handleChange}
                   name="tip"
@@ -128,7 +129,7 @@ function Calculator () {
                 <label htmlFor="tip-50" className="tip-btn" tabIndex="0">50%</label>
                 <input type="radio"
                   className="hidden"
-                  checked={bill.tip === 50}
+                  checked={bill.tip === '50'}
                   value="50"
                   onChange={handleChange}
                   name="tip"
@@ -137,12 +138,21 @@ function Calculator () {
               </div>
 
               {/*CUSTOM TIP */}
-              <input type="text" placeholder="custom"
+              <input type="text"
+                placeholder="custom"
+                name="custom-tip"
+                value={bill.custom_tip}
+                onChange={(e) => handleChange(e)}
                 className="tip-btn-custom"/>
             </div>
           </div>
           <div className="calculator-counter">
-            <h4 className="input-title">Number of People</h4>
+            <div className="input-title-group">
+              <h4 className="input-title">Number of People</h4>
+              <h4 className={bill.people === '0' ? 'input-error active' : 'input-error'}>
+                Cannot Be Zero
+              </h4>
+            </div>
             <div className="input-group">
               <img src={personIcon} alt="icon" className="icon"/>
               <input type="text"
@@ -150,7 +160,7 @@ function Calculator () {
                 name="people"
                 value={bill.people}
                 onChange={(e) => handleChange(e)}
-                className="input-control input-amount-focus"
+                className={bill.people === '0' ? 'input-control active' : 'input-control'}
                 placeholder="0"/>
             </div>
           </div>

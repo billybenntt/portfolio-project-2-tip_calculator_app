@@ -55,20 +55,36 @@ input[type=number] {
     @apply text-primary-cyan-4 mb-1
 }
 
+.input-title-group {
+    @apply flex justify-between items-center
+}
 
 .input-group {
     @apply relative
 }
 
+.input-error {
+    @apply text-sm text-red-500 invisible
+}
+
+.input-error.active {
+    @apply visible
+}
+
+
 .input-control {
     @apply w-full bg-accent-gray rounded-lg p-2 outline-none text-2xl
     text-primary-cyan-6 border-2 border-white cursor-pointer duration-500
+    focus:border-primary-cyan-5
+}
+
+.input-control.active {
+    @apply border-red-500 text-red-800 duration-200 bg-red-200
 }
 
 .tip-btn-container {
     @apply grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-2
 }
-
 
 .tip-btn {
     @apply bg-primary-cyan-6 inline-block w-full p-2.5 md:p-1 rounded-lg
@@ -82,10 +98,6 @@ input[type=number] {
     focus:border-primary-cyan-5 outline-none duration-200
 }
 
-
-.input-amount-focus {
-    @apply focus:border-primary-cyan-5
-}
 
 .icon {
     @apply absolute top-5 left-5
@@ -118,7 +130,7 @@ input[type=number] {
 .output-reset-btn {
     @apply bg-primary-cyan-5 text-center text-2xl text-primary-cyan-6
     rounded-lg hover:bg-primary-cyan-5-light hover:text-primary-cyan-6
-    cursor-pointer duration-200 active:scale-95 p-1
+    cursor-pointer duration-200 active:scale-95 p-1 tracking-widest
 }
 
 
