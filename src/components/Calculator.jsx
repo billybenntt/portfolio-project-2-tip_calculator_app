@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import moneyIcon from '/src/assets/images/icon-dollar.svg'
 import personIcon from '/src/assets/images/icon-person.svg'
+import calculateBill from '../../utitilies/calculateBill.js'
 
 const initialState = {
   bill: { amount: '', people: '', tip: '', custom_tip: '' },
@@ -9,30 +10,9 @@ const initialState = {
 
 function Calculator () {
 
+
   const [bill, setBill] = useState(initialState.bill)
   const [total, setTotal] = useState(initialState.total)
-
-  // CALCULATE BILL
-  const calculateBill = useCallback(() => {
-    const tipPercentage = ((+bill.tip) || (+bill.custom_tip)) / 100
-    const billSubTotal = +bill.amount
-    const numberPeople = +bill.people === 0 ? 1 : +bill.people
-    const tipTotal = (billSubTotal * tipPercentage)
-    const billTotal = billSubTotal + tipTotal
-    const tipDivided = (tipTotal / numberPeople).toFixed(2)
-    const billDivided = (billTotal / numberPeople).toFixed(2)
-
-    const newTotal = {
-      tipAmountPerson: tipDivided,
-      totalAmountPerson: billDivided,
-    }
-    setTotal(newTotal)
-  }, [bill])
-
-  // EFFECT - CALCULATE AND RELOAD COMPONENT
-  useEffect(() => {
-    calculateBill()
-  }, [bill, calculateBill])
 
   //  EVENT LISTENER - CLEAR VALUES
   const clearBill = () => {
@@ -41,7 +21,6 @@ function Calculator () {
   }
 
   //  EVENT LISTENER - UPDATE VALUES
-
   const handleChange = (e) => {
     const { value, name } = e.target
     setBill((prevState) => {
@@ -61,6 +40,17 @@ function Calculator () {
     })
   }
 
+  // CALCULATE BILL
+  const processBill = useCallback(() => {
+    const newTotal = calculateBill(bill)
+    setTotal(newTotal)
+  }, [bill])
+
+  // EFFECT - CALCULATE AND RELOAD COMPONENT
+  useEffect(() => {
+    processBill()
+  }, [bill, processBill])
+
   return (
     <div className="calculator">
       <div className="calculator-center">
@@ -68,7 +58,7 @@ function Calculator () {
         <div className="input-container">
           <div className="calculator-bill">
             <h4 className="input-title">Bill</h4>
-            <div className="input-group ">
+            <div className="input-group">
               <img src={moneyIcon} alt="icon" className="icon"/>
               <input type="text"
                 name="amount"
@@ -170,7 +160,7 @@ function Calculator () {
           <div>
             <div className="output-group">
               <div>
-                <h4 className="output-title">Tip Amount</h4>
+                <h4 className="output-title">Service Fee</h4>
                 <h5 className="output-subtext">/person</h5>
               </div>
               <h2 className="output-amount">${total.tipAmountPerson}</h2>
