@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
+import calculateBill from '../../utitilies/calculateBill.js'
 import moneyIcon from '/src/assets/images/icon-dollar.svg'
 import personIcon from '/src/assets/images/icon-person.svg'
-import calculateBill from '../../utitilies/calculateBill.js'
 
 const initialState = {
   bill: { amount: '', people: '', tip: '', custom_tip: '' },
@@ -10,17 +10,16 @@ const initialState = {
 
 function Calculator () {
 
-
   const [bill, setBill] = useState(initialState.bill)
   const [total, setTotal] = useState(initialState.total)
 
-  //  EVENT LISTENER - CLEAR VALUES
+  //  Event Listener - Reset to Initial State
   const clearBill = () => {
     setTotal(initialState.total)
     setBill(initialState.bill)
   }
 
-  //  EVENT LISTENER - UPDATE VALUES
+  //  Event Listener - Update Values on input change
   const handleChange = (e) => {
     const { value, name } = e.target
     setBill((prevState) => {
@@ -40,13 +39,13 @@ function Calculator () {
     })
   }
 
-  // CALCULATE BILL
+  // Process Bill only on dependency change and update state
   const processBill = useCallback(() => {
     const newTotal = calculateBill(bill)
     setTotal(newTotal)
   }, [bill])
 
-  // EFFECT - CALCULATE AND RELOAD COMPONENT
+  // Effect to Process Bill on dependency Change and initial reload
   useEffect(() => {
     processBill()
   }, [bill, processBill])
@@ -72,9 +71,10 @@ function Calculator () {
             <h4 className="input-title">Service Fee %</h4>
             <div className="tip-btn-container">
               <div>
-                <label htmlFor="tip-5" className="tip-btn" tabIndex="0">5%</label>
+                <label htmlFor="tip-5"
+                  className={bill.tip === '5' ? 'tip-btn active' : 'tip-btn'}
+                  tabIndex="0">5%</label>
                 <input type="radio"
-                  className="hidden"
                   checked={bill.tip === '5'}
                   value="5"
                   onChange={handleChange}
@@ -83,9 +83,10 @@ function Calculator () {
                 />
               </div>
               <div>
-                <label htmlFor="tip-10" className="tip-btn" tabIndex="0">10%</label>
+                <label htmlFor="tip-10"
+                  className={bill.tip === '10' ? 'tip-btn active' : 'tip-btn'}
+                  tabIndex="0">10%</label>
                 <input type="radio"
-                  className="hidden"
                   checked={bill.tip === '10'}
                   value="10"
                   onChange={handleChange}
@@ -94,9 +95,10 @@ function Calculator () {
                 />
               </div>
               <div>
-                <label htmlFor="tip-15" className="tip-btn" tabIndex="0">15%</label>
+                <label htmlFor="tip-15"
+                  className={bill.tip === '15' ? 'tip-btn active' : 'tip-btn'}
+                  tabIndex="0">15%</label>
                 <input type="radio"
-                  className="hidden"
                   checked={bill.tip === '15'}
                   value="15"
                   onChange={handleChange}
@@ -105,9 +107,10 @@ function Calculator () {
                 />
               </div>
               <div>
-                <label htmlFor="tip-25" className="tip-btn" tabIndex="0">25%</label>
+                <label htmlFor="tip-25"
+                  className={bill.tip === '25' ? 'tip-btn active' : 'tip-btn'}
+                  tabIndex="0">25%</label>
                 <input type="radio"
-                  className="hidden"
                   checked={bill.tip === '25'}
                   value="25"
                   onChange={handleChange}
@@ -116,9 +119,10 @@ function Calculator () {
                 />
               </div>
               <div>
-                <label htmlFor="tip-50" className="tip-btn" tabIndex="0">50%</label>
+                <label htmlFor="tip-50"
+                  className={bill.tip === '50' ? 'tip-btn active' : 'tip-btn'}
+                  tabIndex="0">50%</label>
                 <input type="radio"
-                  className="hidden"
                   checked={bill.tip === '50'}
                   value="50"
                   onChange={handleChange}
@@ -133,7 +137,8 @@ function Calculator () {
                 name="custom-tip"
                 value={bill.custom_tip}
                 onChange={(e) => handleChange(e)}
-                className="tip-btn-custom"/>
+                 className={bill.custom_tip ? 'tip-btn-custom active' : 'tip-btn-custom'}
+              />
             </div>
           </div>
           <div className="calculator-counter">

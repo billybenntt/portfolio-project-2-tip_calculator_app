@@ -17,6 +17,10 @@
         caret-color: green;
     }
 
+    input[type=radio] {
+        @apply hidden
+    }
+
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -91,13 +95,22 @@ input[type=number] {
 .tip-btn {
     @apply bg-primary-cyan-6 inline-block w-full p-2.5 md:p-1 rounded-lg
     text-white border-2 text-2xl md:text-xl text-center
-    cursor-pointer focus:border-primary-cyan-5
+    cursor-pointer  hover:bg-primary-cyan-4 hover:text-white
 }
+
+.tip-btn.active {
+    @apply bg-primary-cyan-5 text-primary-cyan-6
+}
+
 
 .tip-btn-custom {
     @apply p-2.5 md:text-xl md:p-1 bg-accent-gray text-primary-cyan-6
     border-2 text-center text-2xl rounded-lg cursor-pointer
     focus:border-primary-cyan-5 outline-none duration-200
+}
+
+.tip-btn-custom.active {
+    @apply text-primary-cyan-5 border-primary-cyan-5
 }
 
 
