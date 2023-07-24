@@ -41,6 +41,11 @@ input[type=number] {
     @apply bg-primary-cyan-2 h-screen grid place-items-center
 }
 
+.logo {
+    @apply mx-auto m-10
+}
+
+
 .calculator {
     @apply mx-auto bg-white rounded-3xl md:max-w-3xl select-none
     shadow-xl
