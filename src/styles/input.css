@@ -110,7 +110,8 @@ input[type=number] {
 }
 
 .tip-btn-custom.active {
-    @apply text-primary-cyan-5 border-primary-cyan-5
+    @apply text-primary-cyan-5 border-primary-cyan-5 shadow
+    shadow-teal-300
 }
 
 
