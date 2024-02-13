@@ -398,10 +398,15 @@ body{
 }
 
 input {
-        direction: rtl;
+        display: flex;
+        text-align: end;
         caret: underscore;
         caret-color: green;
     }
+
+input[type=radio]{
+  display: none;
+}
 
 *, ::before, ::after{
   --tw-border-spacing-x: 0;
@@ -509,9 +514,6 @@ input {
   margin-left: auto;
   margin-right: auto;
 }
-.hidden{
-  display: none;
-}
 
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
@@ -535,6 +537,13 @@ input[type=number] {
   background-color: rgb(197 228 231 / var(--tw-bg-opacity));
 }
 
+.logo{
+  margin: 2.5rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
 .calculator{
   margin-left: auto;
   margin-right: auto;
@@ -544,7 +553,11 @@ input[type=number] {
   border-radius: 1.5rem;
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+  --tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
+
 
 @media (min-width: 768px){
 
@@ -595,10 +608,27 @@ input[type=number] {
   color: rgb(94 122 125 / var(--tw-text-opacity));
 }
 
+.input-title-group{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
 .input-group{
   position: relative;
 }
+
+.input-error{
+  visibility: hidden;
+  font-size: 0.813rem;
+  --tw-text-opacity: 1;
+  color: rgb(239 68 68 / var(--tw-text-opacity));
+}
+
+.input-error.active{
+  visibility: visible;
+}
+
 
 .input-control{
   width: 100%;
@@ -618,6 +648,23 @@ input[type=number] {
   transition-duration: 500ms;
 }
 
+
+.input-control:focus{
+  --tw-border-opacity: 1;
+  border-color: rgb(38 194 174 / var(--tw-border-opacity));
+}
+
+.input-control.active{
+  cursor: not-allowed;
+  --tw-border-opacity: 1;
+  border-color: rgb(239 68 68 / var(--tw-border-opacity));
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 202 202 / var(--tw-bg-opacity));
+  --tw-text-opacity: 1;
+  color: rgb(153 27 27 / var(--tw-text-opacity));
+  transition-duration: 200ms;
+}
+
 .tip-btn-container{
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -631,7 +678,6 @@ input[type=number] {
     gap: 0.5rem;
   }
 }
-
 
 .tip-btn{
   display: inline-block;
@@ -648,12 +694,12 @@ input[type=number] {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
-
-.tip-btn:focus{
-  --tw-border-opacity: 1;
-  border-color: rgb(38 194 174 / var(--tw-border-opacity));
+.tip-btn:hover{
+  --tw-bg-opacity: 1;
+  background-color: rgb(94 122 125 / var(--tw-bg-opacity));
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
-
 
 @media (min-width: 768px){
 
@@ -662,6 +708,14 @@ input[type=number] {
     font-size: 1.25rem;
   }
 }
+
+.tip-btn.active{
+  --tw-bg-opacity: 1;
+  background-color: rgb(38 194 174 / var(--tw-bg-opacity));
+  --tw-text-opacity: 1;
+  color: rgb(0 71 75 / var(--tw-text-opacity));
+}
+
 
 .tip-btn-custom{
   cursor: pointer;
@@ -679,10 +733,12 @@ input[type=number] {
   transition-duration: 200ms;
 }
 
+
 .tip-btn-custom:focus{
   --tw-border-opacity: 1;
   border-color: rgb(38 194 174 / var(--tw-border-opacity));
 }
+
 
 @media (min-width: 768px){
 
@@ -692,12 +748,16 @@ input[type=number] {
   }
 }
 
-
-
-
-.input-amount-focus:focus{
+.tip-btn-custom.active{
   --tw-border-opacity: 1;
   border-color: rgb(38 194 174 / var(--tw-border-opacity));
+  --tw-text-opacity: 1;
+  color: rgb(38 194 174 / var(--tw-text-opacity));
+  --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  --tw-shadow-color: #5eead4;
+  --tw-shadow: var(--tw-shadow-colored);
 }
 
 
@@ -759,6 +819,7 @@ input[type=number] {
   padding: 0.25rem;
   text-align: center;
   font-size: 1.5rem;
+  letter-spacing: 0.1em;
   --tw-text-opacity: 1;
   color: rgb(0 71 75 / var(--tw-text-opacity));
   transition-duration: 200ms;
